@@ -7,7 +7,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % === Examples ===
 
-% 1) Reproduce figure 1 from Lewis & Rinzel 2003:
+%% 1) Reproduce figure 1 from Lewis & Rinzel 2003:
 % Two neurons coupled with inhibition and synaptic strength of -0.2
 W = [0 -0.2; -0.2 0];     
 
@@ -22,7 +22,7 @@ W = [0 -0.2; -0.2 0];
        'initialConditions',[0.4; 0]);
 
    
-% 2) Investigate random network architectures
+%% 2) Investigate random network architectures
 % A random sparse network with noise
 W = 1*rand(8)-0.5;
 W(randperm(numel(W))>round(0.25*numel(W))) = 0;
@@ -37,7 +37,7 @@ W = log(abs(randn(12)));
    'offsetCurrents',1.1*ones(length(W),1));
 
 
-% 3) An example using a neuron with a refractory period:
+%% 3) An example using a neuron with a refractory period:
 % All neurons will drive neuron 3 at high rate, but neuron 3 will have a
 % long refractory period
 W = [0 0 0.5; 0 0 0.5; 0 0 0.2];
@@ -46,7 +46,7 @@ W = [0 0 0.5; 0 0 0.5; 0 0 0.2];
      'initialConditions',[0.2 0.4 0]');
 
  
-% 4) Examine effects of synaptic density:
+%% 4) Examine effects of synaptic density:
 % Connect a driver neuron (1) to others via varied synaptic densities
 W = [0 ones(1,3)*0.4; zeros(3,4)];
 [spk, NetParams, V] = functions.SimLIFNet(W,'simTime',35,'tstep',1e-2,...
@@ -54,7 +54,7 @@ W = [0 ones(1,3)*0.4; zeros(3,4)];
       'synapticDensity',[0 1 4 7; zeros(3,4)]);
 
   
-% 5) Apply forcing functions:
+%% 5) Apply forcing functions:
 % Neuron 1 excites 3, neuron 2 inhibits 3.
 W = [0 0 0.5; 0 0 -0.5; 0 0 0];
 
@@ -65,7 +65,7 @@ Ffcns = {@(t) 1.5*heaviside(t-10), 1; @sin, 2};
        'offsetCurrents',[0.8 0.8 0.8]','forcingFunctions',Ffcns);
 
    
-% 6) Forcing with noise:
+%% 6) Forcing with noise:
 % Apply a constant current to a single neuron from t=10 to 50 in the
 % presence of noise (heaviside is slow for larger networks)
 [spk, NetParams, V] = functions.SimLIFNet(0,'forcingFunctions', ... 
@@ -73,7 +73,7 @@ Ffcns = {@(t) 1.5*heaviside(t-10), 1; @sin, 2};
       'noiseAmplitude',0.3);
 
   
-% 7) Building logical operators with LIF networks (exploiting adjustable
+%% 7) Building logical operators with LIF networks (exploiting adjustable
 % synaptic densities):
 % Build a network with modular logical elements. The last (10th) neuron
 % will serve as the output. Neurons 1 and 2 are inputs to an OR operator;
@@ -99,7 +99,7 @@ F = {@(u) 1.4*(ge(u,5)-ge(u,15)+ge(u,35)-ge(u,45)),1; ...
 set(NetParams.handles.sub1,'ylim',[-0.4 1.9])
 
 
-% 8) Errors due to time-step sizes using multi-part forcing
+%% 8) Errors due to time-step sizes using multi-part forcing
 % Build a network with complex forcing
 W = [0 -0.2; -0.1 0];
 F = { @(u) (u>3 & u<5)*0.8 + (u>=5 & u<10.5)*sin(2*pi/2*u) + ...

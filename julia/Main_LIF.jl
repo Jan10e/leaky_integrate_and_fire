@@ -17,7 +17,7 @@ pyplot()            # Plots package will use Pyplot (matplotlib needs to be inst
 T = 50              # msec
 dt = 0.125          # simulation time step
 t_rest = 0          # initial refractory time
-
+time = collect(0:dt:T+dt)
 
 ## LIF properties
 Rm = 1          # resistance (kOhm)
@@ -48,9 +48,8 @@ end
 
 
 ## Data structures
-
 Vm = zeros(length(time))  # potential (V) trace over time
-time = collect(0:dt:T+dt)
+
 
 ## Simulate
 V = LIFfn(t_rest)

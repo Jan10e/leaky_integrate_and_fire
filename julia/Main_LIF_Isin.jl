@@ -17,6 +17,7 @@ pyplot()            # Plots package will use Pyplot (matplotlib needs to be inst
 T = 50              # msec
 dt = 0.125          # simulation time step
 t_rest = 0          # initial refractory time
+time = collect(0:dt:T+dt)
 
 ## LIF properties
 # Vm = zeros(length(time))  # potential (V) trace over time
@@ -62,8 +63,8 @@ function sinfn(time)
 
             # sinusoidal input current (A)
             # I_sin[iT] = 1.0 + sin.(time[iT])
-            # I_sin[iT] = 1.0 .+ 2.5*sin.(time[iT])     # increase amplitude
-            I_sin[iT] = 1.0 + sin.(3.0*time[iT])    # increase frequency
+            I_sin[iT] = 1.0 .+ 2.5*sin.(time[iT])     # increase amplitude
+            # I_sin[iT] = 1.0 + sin.(3.0*time[iT])    # increase frequency
         end
     end
 
@@ -73,7 +74,7 @@ end
 
 ## Data structures
 Vm = zeros(length(time))  # potential (V) trace over time
-time = collect(0:dt:T+dt)
+
 
 
 ## Simulate

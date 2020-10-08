@@ -101,6 +101,7 @@ for iT = 1:length(Tt)-1
 end
 
 
+
 ## Plot membrane potential trace
 p1 = plot(
     Tt,
