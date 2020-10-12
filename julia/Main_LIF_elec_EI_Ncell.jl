@@ -42,7 +42,7 @@ g = g - Diagonal(Diagonal(g))
 
 ## initial voltage and time vector
 T_final = 50     # msec
-dt = 1e-2         # simulation Tt step
+dt = 1e-2         # simulation time step
 
 # init vals for spike threshold (V)
 V_0 = rand(1, Nn) .* 4 .+ V_rest
