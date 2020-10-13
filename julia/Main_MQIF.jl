@@ -19,29 +19,27 @@ g_s = 0.2           # conductance slow ion channels
 g_u = 0             # conductance ultra-slow ion channels
 
 # input
-# I = 5
-I_app = 5
+I_app = 10
 
 # steady state values
-# V_f0 = -70
 V_f0 = -40
 V_s0 = -35
 V_u0 = -40
 
 
 ## Resets
-V_r = -70        # resting potential fast gating
-V_sr = -30       # resting potential slow gating
 ΔV_u = 0            # reset addition for ultraslow gating
-V_max = -30          # Voltage threshold
-V_spike = 50       # spike delta (V)
+V_max = 40          # Voltage threshold
+V_spike = 80       # spike delta (V)
+V_r = -45 #-70        # reset potential fast gating
+V_sr = 50 #-30       # reset potential slow gating
 
 ## Membrane time constants
 τ_s = 10            # time-scale slow
 τ_u = 100           # time-scale ultra-slow
 
 ## Initial values and time vector
-T_final = 20       # msec
+T_final = 200       # msec
 dt = 1e-2           # simulation time step
 Tt = collect(0:dt:T_final)
 
@@ -59,10 +57,10 @@ dVu(V, V_u, τ_u) = (V - V_u) / τ_u
 function MQIFfn(V_max, V_r, V_sr, ΔV_u, I_step)
 
     # initial value
-    V = V_r
-    Vprev = V_r
-    V_s = V_sr
-    V_u = V_sr
+    V = -30
+    Vprev = -30
+    V_s = -40
+    V_u = -40
 
     # data structures
     spike_train = zeros(length(Tt))
