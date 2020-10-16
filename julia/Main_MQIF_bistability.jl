@@ -2,7 +2,6 @@
 # Looking at bistability
 # based on https://senselab.med.yale.edu/modeldb/ShowModel.cshtml?model=235138&file=/Van_Pottelbergh_2018/MQIF_bistability.py#tabs-2
 #
-# Bistability
 #
 # Name: Jantine Broek
 # Date: October 2020
@@ -22,12 +21,7 @@ g_s = 0.2           # conductance slow ion channels
 g_u = 0             # conductance ultra-slow ion channels
 
 # input
-<<<<<<< HEAD
 I_app = 21
-=======
-I_app_up = 15
-I_app_down = -15
->>>>>>> master
 
 # steady state values
 V_f0 = -40
@@ -37,18 +31,10 @@ V_u0 = -40
 
 ## Resets
 ΔV_u = 0            # reset addition for ultraslow gating
-<<<<<<< HEAD
 V_max = 40          # Voltage threshold
 V_spike = 80       # spike delta (V)
 V_r = -45           # reset potential fast gating
 V_sr = -30       # reset potential slow gating
-=======
-V_max = -30          # Voltage threshold
-V_spike = 0       # spike delta (V)
-
-V_r = -40           # reset potential fast gating
-V_sr = -30          # reset potential slow gating
->>>>>>> master
 
 ## Membrane time constants
 τ_s = 10            # time-scale slow
