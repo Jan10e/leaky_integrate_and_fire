@@ -2,6 +2,7 @@
 # Looking at bistability
 # based on https://senselab.med.yale.edu/modeldb/ShowModel.cshtml?model=235138&file=/Van_Pottelbergh_2018/MQIF_bistability.py#tabs-2
 #
+# Bistability
 #
 # Name: Jantine Broek
 # Date: October 2020
