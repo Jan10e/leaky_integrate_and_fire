@@ -1,6 +1,7 @@
 # Multi-Quadratic Integrate and Fire (MQIF) neuron
-# based on https://senselab.med.yale.edu/modeldb/ShowModel.cshtml?model=235138&file=/Van_Pottelbergh_2018/MQIF_bistability.py#tabs-2
+# based on https://senselab.med.yale.edu/modeldb/ShowModel.cshtml?model=235138&file=/Van_Pottelbergh_2018/MQIF_spike_latency.py#tabs-2
 #
+# replication spike-latency -fig. 6, Pottelbergh(2017)
 #
 # Name: Jantine Broek
 # Date: October 2020
@@ -14,12 +15,13 @@ pyplot()            # Plots package will use Pyplot (matplotlib needs to be inst
 
 ## Parameters
 C = 1               # capacitance
+
 g_f = 1             # conductance fast ion channels
-g_s = 0.2           # conductance slow ion channels
+g_s = 0.5           # conductance slow ion channels
 g_u = 0             # conductance ultra-slow ion channels
 
 # input
-I_app = 10
+I_app = 40
 
 # steady state values
 V_f0 = -40
@@ -29,10 +31,11 @@ V_u0 = -40
 
 ## Resets
 ΔV_u = 0            # reset addition for ultraslow gating
-V_max = 40          # Voltage threshold
+V_max = 30          # Voltage threshold
 V_spike = 80       # spike delta (V)
+
 V_r = -45 #-70        # reset potential fast gating
-V_sr = 50 #-30       # reset potential slow gating
+V_sr = 0              # reset potential slow gating
 
 ## Membrane time constants
 τ_s = 10            # time-scale slow
@@ -45,9 +48,8 @@ Tt = collect(0:dt:T_final)
 
 # step function
 T_step_start = floor(Int, 0.1 * length(Tt))
-T_step_stop = floor(Int, 0.7 * length(Tt))
 I_step = zeros(length(Tt))
-I_step[T_step_start:T_step_stop] .= I_app
+I_step[T_step_start1:end] .= I_app
 
 ## Functions
 dV(V, V_s, V_u, V_f0, V_s0, V_u0, g_f, g_s, g_u, C, I) = (g_f*(V - V_f0)^2 - g_s*(V_s - V_s0)^2 - g_u*(V_u - V_u0)^2 + I) / C
@@ -57,10 +59,10 @@ dVu(V, V_u, τ_u) = (V - V_u) / τ_u
 function MQIFfn(V_max, V_r, V_sr, ΔV_u, I_step)
 
     # initial value
-    V = -30
-    Vprev = -30
-    V_s = -40
-    V_u = -40
+    V = -44
+    Vprev = -44
+    V_s = -44
+    V_u = -44
 
     # data structures
     spike_train = zeros(length(Tt))

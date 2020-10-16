@@ -1,6 +1,7 @@
 # Multi-Quadratic Integrate and Fire (MQIF) neuron
-# based on https://senselab.med.yale.edu/modeldb/ShowModel.cshtml?model=235138&file=/Van_Pottelbergh_2018/MQIF_bistability.py#tabs-2
+# based on https://senselab.med.yale.edu/modeldb/ShowModel.cshtml?model=235138&file=/Van_Pottelbergh_2018/MQIF_ADP.py#tabs-2
 #
+# ADP
 #
 # Name: Jantine Broek
 # Date: October 2020
@@ -14,40 +15,52 @@ pyplot()            # Plots package will use Pyplot (matplotlib needs to be inst
 
 ## Parameters
 C = 1               # capacitance
+
 g_f = 1             # conductance fast ion channels
-g_s = 0.2           # conductance slow ion channels
+g_s = 0.5           # conductance slow ion channels
 g_u = 0             # conductance ultra-slow ion channels
 
 # input
-I_app = 10
+I_app_up1 = 3
+I_app_up2 = 5
 
 # steady state values
 V_f0 = -40
-V_s0 = -35
+V_s0 = -39
 V_u0 = -40
 
 
 ## Resets
 ΔV_u = 0            # reset addition for ultraslow gating
-V_max = 40          # Voltage threshold
-V_spike = 80       # spike delta (V)
-V_r = -45 #-70        # reset potential fast gating
-V_sr = 50 #-30       # reset potential slow gating
+V_max = -30          # Voltage threshold
+V_spike = 0       # spike delta (V)
+
+V_r = -40           # reset potential fast gating
+V_sr = -35          # reset potential slow gating
 
 ## Membrane time constants
 τ_s = 10            # time-scale slow
 τ_u = 100           # time-scale ultra-slow
 
 ## Initial values and time vector
-T_final = 200       # msec
+T_final = 500       # msec
 dt = 1e-2           # simulation time step
 Tt = collect(0:dt:T_final)
 
 # step function
-T_step_start = floor(Int, 0.1 * length(Tt))
-T_step_stop = floor(Int, 0.7 * length(Tt))
+T_step_start1 = floor(Int, 0.1 * length(Tt))
+T_step_stop1 = floor(Int, 0.13 * length(Tt))
+T_step_start2 = floor(Int, 0.3 * length(Tt))
+T_step_stop2 = floor(Int, 0.38 * length(Tt))
+T_step_start3 = floor(Int, 0.5 * length(Tt))
+T_step_stop3 = floor(Int, 0.53 * length(Tt))
+T_step_start4 = floor(Int, 0.8 * length(Tt))
+T_step_stop4 = floor(Int, 0.88 * length(Tt))
 I_step = zeros(length(Tt))
-I_step[T_step_start:T_step_stop] .= I_app
+I_step[T_step_start1:T_step_stop1] .= I_app_up1
+I_step[T_step_start2:T_step_stop2] .= I_app_up1
+I_step[T_step_start3:T_step_stop3] .= I_app_up2
+I_step[T_step_start4:T_step_stop4] .= I_app_up2
 
 ## Functions
 dV(V, V_s, V_u, V_f0, V_s0, V_u0, g_f, g_s, g_u, C, I) = (g_f*(V - V_f0)^2 - g_s*(V_s - V_s0)^2 - g_u*(V_u - V_u0)^2 + I) / C
@@ -57,10 +70,10 @@ dVu(V, V_u, τ_u) = (V - V_u) / τ_u
 function MQIFfn(V_max, V_r, V_sr, ΔV_u, I_step)
 
     # initial value
-    V = -30
-    Vprev = -30
-    V_s = -40
-    V_u = -40
+    V = -41.5
+    Vprev = -41.5
+    V_s = -41.5
+    V_u = -41.5
 
     # data structures
     spike_train = zeros(length(Tt))
@@ -101,7 +114,8 @@ p1 = plot(
     title = "input current",
     ylabel = "current (A)",
     linewidth = 2,
-    color = :black
+    color = :black,
+    legend = :none
 )
 
 p2 = plot(
@@ -110,7 +124,7 @@ p2 = plot(
     title = "time trace",
     ylabel = "Membrane Potential (V)",
     xlabel = "time (msec)",
-    linewidth = 2,
+    linewidth = 1,
     legend = :none,
 )
 
