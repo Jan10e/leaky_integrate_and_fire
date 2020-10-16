@@ -24,7 +24,6 @@ options = optimoptions('fsolve','MaxFunEvals',1e16,'MaxIter',...
 %% Functions and Parameters
 C = 1;               % capacitance
 g_f = 1;             % conductance fast ion channels
-g_s = 0.2;           % conductance slow ion channels
 
 % membrane time constants
 tau_s = 10;          % time-scale s  
@@ -34,28 +33,34 @@ v_f0 = -40;         % fast time-scale
 v_s0 = -35;         % slow time-scale
 
 % reset values
-v_max = 40;         % spike cutoff
+v_max = -30;         % spike cutoff
 v_spike = 80;       % approx of spike
-% v_r = -45;        % voltage reset
-% v_sr = 50;       % reset for slow gating  
+
+
+%% Parameters for different kinds of spiking
 
 % bistability
-v_r = -45;        % voltage reset
+g_s = 0.2;        % conductance slow ion channels
+v_r = -40;        % voltage reset
 v_sr = -30;       % reset for slow gating  
+I_app = 50;       % input
 
-% input
-I_app = 10;
+% spike latency
+% g_s = 0.5;        % conductance slow ion channels
+% v_r = -45;        % voltage reset
+% v_sr = 0;         % reset for slow gating  
+% I_app = 10;       % input
     
 
 %% Time and Initial values
 
 % time span and step (ms)
-T_final = 20; 
+T_final = 50; 
 dt = 1e-2;                          
 Tt = 0:dt:T_final;
 
 % initial values
-v_init = -30;         
+v_init = -80;         
 u_init = -40;
 
 
@@ -157,5 +162,5 @@ outpath_fig_eps = fullfile(dir_base, dir_fig, out_fig_eps);
 
 % figures
 % saveas(f1, outpath_fig_eps,'eps')
-saveas(f1, outpath_fig_png,'png')
+% saveas(f1, outpath_fig_png,'png')
 

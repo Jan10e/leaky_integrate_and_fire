@@ -6,7 +6,7 @@
 # Date: October 2020
 #####################################################################
 ## working directory
-cd("/Users/jantinebroek/Documents/03_projects/04_IF/")
+cd("/Users/jantinebroek/Documents/03_projects/04_IF/code/julia")
 
 ## Loads packages
 using Plots         # Select the Plots package for figures

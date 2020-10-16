@@ -1,7 +1,7 @@
 # Multi-Quadratic Integrate and Fire (MQIF) neuron
-# Looking at bistability
-# based on https://senselab.med.yale.edu/modeldb/ShowModel.cshtml?model=235138&file=/Van_Pottelbergh_2018/MQIF_bistability.py#tabs-2
+# based on https://senselab.med.yale.edu/modeldb/ShowModel.cshtml?model=235138&file=/Van_Pottelbergh_2018/MQIF_spike_latency.py#tabs-2
 #
+# replication spike-latency -fig. 6, Pottelbergh(2017)
 #
 # Name: Jantine Broek
 # Date: October 2020
@@ -17,16 +17,11 @@ pyplot()            # Plots package will use Pyplot (matplotlib needs to be inst
 C = 1               # capacitance
 
 g_f = 1             # conductance fast ion channels
-g_s = 0.2           # conductance slow ion channels
+g_s = 0.5           # conductance slow ion channels
 g_u = 0             # conductance ultra-slow ion channels
 
 # input
-<<<<<<< HEAD
-I_app = 21
-=======
-I_app_up = 15
-I_app_down = -15
->>>>>>> master
+I_app = 40
 
 # steady state values
 V_f0 = -40
@@ -36,53 +31,25 @@ V_u0 = -40
 
 ## Resets
 ΔV_u = 0            # reset addition for ultraslow gating
-<<<<<<< HEAD
-V_max = 40          # Voltage threshold
+V_max = 30          # Voltage threshold
 V_spike = 80       # spike delta (V)
-V_r = -45           # reset potential fast gating
-V_sr = -30       # reset potential slow gating
-=======
-V_max = -30          # Voltage threshold
-V_spike = 0       # spike delta (V)
 
-V_r = -40           # reset potential fast gating
-V_sr = -30          # reset potential slow gating
->>>>>>> master
+V_r = -45 #-70        # reset potential fast gating
+V_sr = 0              # reset potential slow gating
 
 ## Membrane time constants
 τ_s = 10            # time-scale slow
 τ_u = 100           # time-scale ultra-slow
 
 ## Initial values and time vector
-<<<<<<< HEAD
-T_final = 550       # msec
-=======
-T_final = 500       # msec
->>>>>>> master
+T_final = 200       # msec
 dt = 1e-2           # simulation time step
 Tt = collect(0:dt:T_final)
 
 # step function
-T_step_start1 = floor(Int, 0.1 * length(Tt))
-T_step_stop1 = floor(Int, 0.11 * length(Tt))
-T_step_start2 = floor(Int, 0.2 * length(Tt))
-T_step_stop2 = floor(Int, 0.21 * length(Tt))
-T_step_start3 = floor(Int, 0.6 * length(Tt))
-T_step_stop3 = floor(Int, 0.61 * length(Tt))
-T_step_start4 = floor(Int, 0.7 * length(Tt))
-T_step_stop4 = floor(Int, 0.71 * length(Tt))
-I_step = ones(length(Tt))
-<<<<<<< HEAD
-I_step[T_step_start1:T_step_stop1] .= I_app
-I_step[T_step_start2:T_step_stop2] .= -I_app
-I_step[T_step_start3:T_step_stop3] .= I_app
-I_step[T_step_start4:T_step_stop4] .= -I_app
-=======
-I_step[T_step_start1:T_step_stop1] .= I_app_up
-I_step[T_step_start2:T_step_stop2] .= I_app_down
-I_step[T_step_start3:T_step_stop3] .= I_app_up
-I_step[T_step_start4:T_step_stop4] .= I_app_down
->>>>>>> master
+T_step_start = floor(Int, 0.1 * length(Tt))
+I_step = zeros(length(Tt))
+I_step[T_step_start1:end] .= I_app
 
 ## Functions
 dV(V, V_s, V_u, V_f0, V_s0, V_u0, g_f, g_s, g_u, C, I) = (g_f*(V - V_f0)^2 - g_s*(V_s - V_s0)^2 - g_u*(V_u - V_u0)^2 + I) / C
@@ -136,8 +103,7 @@ p1 = plot(
     title = "input current",
     ylabel = "current (A)",
     linewidth = 2,
-    color = :black,
-    legend = :none
+    color = :black
 )
 
 p2 = plot(
@@ -146,7 +112,7 @@ p2 = plot(
     title = "time trace",
     ylabel = "Membrane Potential (V)",
     xlabel = "time (msec)",
-    linewidth = 1,
+    linewidth = 2,
     legend = :none,
 )
 
