@@ -41,13 +41,12 @@ V_sr = -30       # reset potential slow gating
 τ_u = 100           # time-scale ultra-slow
 
 ## Initial values and time vector
-<<<<<<< HEAD
 T_final = 550       # msec
-=======
-T_final = 500       # msec
->>>>>>> master
 dt = 1e-2           # simulation time step
 Tt = collect(0:dt:T_final)
+
+
+str_input = "I$I_app Vr$V_r Vsr$V_sr"
 
 # step function
 T_step_start1 = floor(Int, 0.1 * length(Tt))
@@ -58,18 +57,14 @@ T_step_start3 = floor(Int, 0.6 * length(Tt))
 T_step_stop3 = floor(Int, 0.61 * length(Tt))
 T_step_start4 = floor(Int, 0.7 * length(Tt))
 T_step_stop4 = floor(Int, 0.71 * length(Tt))
+
 I_step = ones(length(Tt))
-<<<<<<< HEAD
 I_step[T_step_start1:T_step_stop1] .= I_app
 I_step[T_step_start2:T_step_stop2] .= -I_app
 I_step[T_step_start3:T_step_stop3] .= I_app
 I_step[T_step_start4:T_step_stop4] .= -I_app
-=======
-I_step[T_step_start1:T_step_stop1] .= I_app_up
-I_step[T_step_start2:T_step_stop2] .= I_app_down
-I_step[T_step_start3:T_step_stop3] .= I_app_up
-I_step[T_step_start4:T_step_stop4] .= I_app_down
->>>>>>> master
+
+
 
 ## Functions
 dV(V, V_s, V_u, V_f0, V_s0, V_u0, g_f, g_s, g_u, C, I) = (g_f*(V - V_f0)^2 - g_s*(V_s - V_s0)^2 - g_u*(V_u - V_u0)^2 + I) / C
@@ -147,3 +142,7 @@ p3 = scatter(
 )
 
 plot(p1, p2, p3, layout = (3,1))
+
+#save figures
+cd("/Users/jantinebroek/Documents/03_projects/04_IF/code/figures")
+savefig("MQIF_bistability_" * str_input * ".eps")

@@ -46,6 +46,8 @@ T_final = 200       # msec
 dt = 1e-2           # simulation time step
 Tt = collect(0:dt:T_final)
 
+str_input = "I$I_app Vr$V_r Vsr$V_sr"
+
 # step function
 T_step_start = floor(Int, 0.1 * length(Tt))
 I_step = zeros(length(Tt))
@@ -126,3 +128,7 @@ p3 = scatter(
 )
 
 plot(p1, p2, p3, layout = (3,1))
+
+#save figures
+cd("/Users/jantinebroek/Documents/03_projects/04_IF/code/figures")
+savefig("MQIF_spike_latency_" * str_input * ".eps")

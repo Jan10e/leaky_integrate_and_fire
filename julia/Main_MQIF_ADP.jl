@@ -47,6 +47,8 @@ T_final = 500       # msec
 dt = 1e-2           # simulation time step
 Tt = collect(0:dt:T_final)
 
+str_input = "Iup1_$I_app_up1 Iup2_$I_app_up2 Vr$V_r Vsr$V_sr"
+
 # step function
 T_step_start1 = floor(Int, 0.1 * length(Tt))
 T_step_stop1 = floor(Int, 0.13 * length(Tt))
@@ -56,6 +58,7 @@ T_step_start3 = floor(Int, 0.5 * length(Tt))
 T_step_stop3 = floor(Int, 0.53 * length(Tt))
 T_step_start4 = floor(Int, 0.8 * length(Tt))
 T_step_stop4 = floor(Int, 0.88 * length(Tt))
+
 I_step = zeros(length(Tt))
 I_step[T_step_start1:T_step_stop1] .= I_app_up1
 I_step[T_step_start2:T_step_stop2] .= I_app_up1
@@ -138,3 +141,7 @@ p3 = scatter(
 )
 
 plot(p1, p2, p3, layout = (3,1))
+
+#save figures
+cd("/Users/jantinebroek/Documents/03_projects/04_IF/code/figures")
+savefig("MQIF_ADP_" * str_input * ".eps")
